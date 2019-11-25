@@ -14,4 +14,6 @@ public interface LoginHistoryEntityMapper {
     int updateByPrimaryKeySelective(LoginHistoryEntity record);
 
     int updateByPrimaryKey(LoginHistoryEntity record);
+
+    LoginHistoryEntity selectByUserName(String username);
 }

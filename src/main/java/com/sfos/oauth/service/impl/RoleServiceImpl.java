@@ -1,11 +1,10 @@
-package com.revengemission.sso.oauth2.server.service.impl;
+package com.sfos.oauth.service.impl;
 
 import com.github.dozermapper.core.Mapper;
-import com.revengemission.sso.oauth2.server.domain.NotImplementException;
-import com.revengemission.sso.oauth2.server.domain.Role;
-import com.revengemission.sso.oauth2.server.persistence.entity.RoleEntity;
-import com.revengemission.sso.oauth2.server.persistence.repository.RoleRepository;
-import com.revengemission.sso.oauth2.server.service.RoleService;
+import com.sfos.oauth.base.NotImplementException;
+import com.sfos.oauth.base.Role;
+import com.sfos.oauth.mapper.RoleEntityMapper;
+import com.sfos.oauth.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,14 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
-    RoleRepository roleRepository;
+    RoleEntityMapper roleEntityMapper;
 
     @Autowired
     Mapper dozerMapper;
 
     @Override
     public Role findByRoleName(String roleName) throws NotImplementException {
-        RoleEntity roleEntity = roleRepository.findByRoleName(roleName);
+        RoleEntity roleEntity = roleEntityMapper.selectByRoleName(roleName);
         if (roleEntity != null) {
             return dozerMapper.map(roleEntity, Role.class);
         } else {

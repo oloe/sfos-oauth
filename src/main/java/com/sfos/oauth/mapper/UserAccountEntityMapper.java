@@ -14,4 +14,8 @@ public interface UserAccountEntityMapper {
     int updateByPrimaryKeySelective(UserAccountEntity record);
 
     int updateByPrimaryKey(UserAccountEntity record);
+
+    UserAccountEntity selectByUsername(String username);
+
+    boolean checkByUsername(String username);
 }

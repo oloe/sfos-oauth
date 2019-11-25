@@ -1,13 +1,12 @@
-package com.revengemission.sso.oauth2.server.service.impl;
+package com.sfos.oauth.service.impl;
 
 import com.github.dozermapper.core.Mapper;
-import com.revengemission.sso.oauth2.server.domain.AlreadyExistsException;
-import com.revengemission.sso.oauth2.server.domain.EntityNotFoundException;
-import com.revengemission.sso.oauth2.server.domain.JsonObjects;
-import com.revengemission.sso.oauth2.server.domain.OauthClient;
-import com.revengemission.sso.oauth2.server.persistence.entity.OauthClientEntity;
-import com.revengemission.sso.oauth2.server.persistence.repository.OauthClientRepository;
-import com.revengemission.sso.oauth2.server.service.OauthClientService;
+import com.sfos.oauth.base.AlreadyExistsException;
+import com.sfos.oauth.base.EntityNotFoundException;
+import com.sfos.oauth.base.JsonObjects;
+import com.sfos.oauth.base.OauthClient;
+import com.sfos.oauth.mapper.OauthClientEntityMapper;
+import com.sfos.oauth.service.OauthClientService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,14 +22,14 @@ import java.util.Optional;
 public class OauthClientServiceImpl implements OauthClientService {
 
     @Autowired
-    OauthClientRepository oauthClientRepository;
+    OauthClientEntityMapper oauthClientEntityMapper;
 
     @Autowired
     Mapper dozerMapper;
 
     @Override
     public OauthClient findByClientId(String clientId) {
-        OauthClientEntity oauthClientEntity = oauthClientRepository.findByClientId(clientId);
+        OauthClientEntity oauthClientEntity = oauthClientEntityMapper.selectByClientId(clientId);
         if (oauthClientEntity != null) {
             return dozerMapper.map(oauthClientEntity, OauthClient.class);
         } else {
@@ -48,7 +47,7 @@ public class OauthClientServiceImpl implements OauthClientService {
             sort = Sort.by(Sort.Direction.DESC, sortField);
         }
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
-        Page<OauthClientEntity> page = oauthClientRepository.findAll(pageable);
+        Page<OauthClientEntity> page = oauthClientEntityMapper.findAll(pageable);
         if (page.getContent() != null && page.getContent().size() > 0) {
             jsonObjects.setRecordsTotal(page.getTotalElements());
             jsonObjects.setRecordsFiltered(page.getTotalElements());
@@ -59,24 +58,24 @@ public class OauthClientServiceImpl implements OauthClientService {
 
     @Override
     public OauthClient create(OauthClient oauthClient) throws AlreadyExistsException {
-        OauthClientEntity exist = oauthClientRepository.findByClientId(oauthClient.getClientId());
+        OauthClientEntity exist = oauthClientEntityMapper.selectByClientId(oauthClient.getClientId());
         if (exist != null) {
             throw new AlreadyExistsException(oauthClient.getClientId() + " already exists!");
         }
         OauthClientEntity oauthClientEntity = dozerMapper.map(oauthClient, OauthClientEntity.class);
-        oauthClientRepository.save(oauthClientEntity);
+        oauthClientEntityMapper.insert(oauthClientEntity);
         return dozerMapper.map(oauthClientEntity, OauthClient.class);
     }
 
     @Override
     public OauthClient retrieveById(long id) throws EntityNotFoundException {
-        Optional<OauthClientEntity> entityOptional = oauthClientRepository.findById(id);
+        Optional<OauthClientEntity> entityOptional = oauthClientEntityMapper.selectByPrimaryKey(id);
         return dozerMapper.map(entityOptional.orElseThrow(EntityNotFoundException::new), OauthClient.class);
     }
 
     @Override
     public OauthClient updateById(OauthClient oauthClient) throws EntityNotFoundException {
-        Optional<OauthClientEntity> entityOptional = oauthClientRepository.findById(Long.parseLong(oauthClient.getId()));
+        Optional<OauthClientEntity> entityOptional = oauthClientEntityMapper.findById(Long.parseLong(oauthClient.getId()));
         OauthClientEntity e = entityOptional.orElseThrow(EntityNotFoundException::new);
         if (StringUtils.isNotEmpty(oauthClient.getClientSecret())) {
             e.setClientSecret(oauthClient.getClientSecret());

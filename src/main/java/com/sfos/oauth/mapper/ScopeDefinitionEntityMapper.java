@@ -14,4 +14,6 @@ public interface ScopeDefinitionEntityMapper {
     int updateByPrimaryKeySelective(ScopeDefinitionEntity record);
 
     int updateByPrimaryKey(ScopeDefinitionEntity record);
+
+    ScopeDefinitionEntity selectByScope(String scope);
 }

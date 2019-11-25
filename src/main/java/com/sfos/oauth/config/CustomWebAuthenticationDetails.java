@@ -1,10 +1,14 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
-import com.revengemission.sso.oauth2.server.domain.GlobalConstant;
+import com.sfos.oauth.base.GlobalConstant;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * 数据验证
+ */
 public class CustomWebAuthenticationDetails extends WebAuthenticationDetails {
     private static final long serialVersionUID = 6975601077710753878L;
     private final String inputVerificationCode;

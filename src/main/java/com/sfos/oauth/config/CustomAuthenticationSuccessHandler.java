@@ -1,15 +1,15 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revengemission.sso.oauth2.server.domain.GlobalConstant;
-import com.revengemission.sso.oauth2.server.domain.LoginHistory;
-import com.revengemission.sso.oauth2.server.domain.ResponseResult;
-import com.revengemission.sso.oauth2.server.domain.RoleEnum;
-import com.revengemission.sso.oauth2.server.service.LoginHistoryService;
-import com.revengemission.sso.oauth2.server.service.UserAccountService;
-import com.revengemission.sso.oauth2.server.utils.ClientIpUtil;
+import com.sfos.oauth.base.GlobalConstant;
+import com.sfos.oauth.base.LoginHistory;
+import com.sfos.oauth.base.ResponseResult;
+import com.sfos.oauth.base.RoleEnum;
+import com.sfos.oauth.service.LoginHistoryService;
+import com.sfos.oauth.service.UserAccountService;
+import com.sfos.oauth.utils.ClientIpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotWritableException;

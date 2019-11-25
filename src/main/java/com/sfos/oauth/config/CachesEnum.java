@@ -1,4 +1,4 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
 public enum CachesEnum {
     /**

@@ -14,4 +14,6 @@ public interface RoleEntityMapper {
     int updateByPrimaryKeySelective(RoleEntity record);
 
     int updateByPrimaryKey(RoleEntity record);
+
+    RoleEntity selectByRoleName(String roleName);
 }

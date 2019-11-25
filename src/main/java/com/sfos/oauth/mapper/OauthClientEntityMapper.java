@@ -14,4 +14,6 @@ public interface OauthClientEntityMapper {
     int updateByPrimaryKeySelective(OauthClientEntity record);
 
     int updateByPrimaryKey(OauthClientEntity record);
+
+    OauthClientEntity selectByClientId(String clientId);
 }

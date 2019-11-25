@@ -1,12 +1,12 @@
-package com.revengemission.sso.oauth2.server.service.impl;
+package com.sfos.oauth.service.impl;
 
 import com.github.dozermapper.core.Mapper;
 import com.revengemission.sso.oauth2.server.domain.AlreadyExistsException;
-import com.revengemission.sso.oauth2.server.domain.JsonObjects;
-import com.revengemission.sso.oauth2.server.domain.LoginHistory;
 import com.revengemission.sso.oauth2.server.persistence.entity.LoginHistoryEntity;
-import com.revengemission.sso.oauth2.server.persistence.repository.LoginHistoryRepository;
 import com.revengemission.sso.oauth2.server.service.LoginHistoryService;
+import com.sfos.oauth.base.JsonObjects;
+import com.sfos.oauth.base.LoginHistory;
+import com.sfos.oauth.mapper.LoginHistoryEntityMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginHistoryServiceImpl implements LoginHistoryService {
     @Autowired
-    LoginHistoryRepository loginHistoryRepository;
+    LoginHistoryEntityMapper loginHistoryEntityMapper;
 
     @Autowired
     Mapper dozerMapper;
@@ -35,7 +35,7 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
             sort = Sort.by(Sort.Direction.DESC, sortField);
         }
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
-        Page<LoginHistoryEntity> page = loginHistoryRepository.findByUsername(username, pageable);
+        Page<LoginHistoryEntity> page = loginHistoryEntityMapper.selectByUserName(username, pageable);
         if (page.getContent() != null && page.getContent().size() > 0) {
             jsonObjects.setRecordsTotal(page.getTotalElements());
             jsonObjects.setRecordsFiltered(page.getTotalElements());

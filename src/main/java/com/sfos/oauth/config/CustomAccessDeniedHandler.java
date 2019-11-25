@@ -1,11 +1,11 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revengemission.sso.oauth2.server.domain.GlobalConstant;
-import com.revengemission.sso.oauth2.server.domain.ResponseResult;
-import com.revengemission.sso.oauth2.server.utils.ClientIpUtil;
+import com.sfos.oauth.base.GlobalConstant;
+import com.sfos.oauth.base.ResponseResult;
+import com.sfos.oauth.utils.ClientIpUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.security.access.AccessDeniedException;
@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 默认登录校验
+ *
+ * 校验内容报文头api-login：apiLogin
+ */
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -27,6 +32,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
                        HttpServletResponse response, AccessDeniedException e) throws IOException {
         //服务器地址
         String toUrl = ClientIpUtil.getFullRequestUrl(request);
+
         boolean isAjax = "XMLHttpRequest".equals(request
             .getHeader("X-Requested-With")) || "apiLogin".equals(request
             .getHeader("api-login"));
@@ -44,7 +50,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
                 throw new HttpMessageNotWritableException("Could not write JSON: " + ex.getMessage(), ex);
             }
         } else {
-///            response.sendRedirect(accessDeniedUrl + "?toUrl=" + toUrl);
             response.sendRedirect(accessDeniedUrl);
         }
     }

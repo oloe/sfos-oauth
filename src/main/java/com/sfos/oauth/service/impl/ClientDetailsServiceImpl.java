@@ -1,10 +1,9 @@
-package com.revengemission.sso.oauth2.server.service.impl;
+package com.sfos.oauth.service.impl;
 
-import com.revengemission.sso.oauth2.server.config.CachesEnum;
-import com.revengemission.sso.oauth2.server.domain.AlreadyExpiredException;
-import com.revengemission.sso.oauth2.server.domain.InvalidClientException;
-import com.revengemission.sso.oauth2.server.persistence.entity.OauthClientEntity;
-import com.revengemission.sso.oauth2.server.persistence.repository.OauthClientRepository;
+import com.sfos.oauth.base.AlreadyExpiredException;
+import com.sfos.oauth.base.InvalidClientException;
+import com.sfos.oauth.config.CachesEnum;
+import com.sfos.oauth.mapper.OauthClientEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -17,15 +16,19 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * 获取客户端信息
+ */
 @Service
 public class ClientDetailsServiceImpl implements ClientDetailsService {
 
     @Autowired
-    OauthClientRepository oauthClientRepository;
+    OauthClientEntityMapper oauthClientEntityMapper;
 
     @Autowired
     CacheManager cacheManager;
@@ -39,12 +42,12 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
             return (ClientDetails) valueWrapper.get();
         }
 
-        OauthClientEntity oauthClientEntity = oauthClientRepository.findByClientId(clientId);
+        OauthClientEntity oauthClientEntity = oauthClientEntityMapper.selectByClientId(clientId);
         if (oauthClientEntity != null) {
             if (oauthClientEntity.getRecordStatus() < 0) {
                 throw new InvalidClientException(String.format("clientId %s is disabled!", clientId));
             }
-            if (oauthClientEntity.getExpirationDate() != null && oauthClientEntity.getExpirationDate().isBefore(LocalDateTime.now())) {
+            if (oauthClientEntity.getExpirationDate() != null && oauthClientEntity.getExpirationDate().before(new Date())) {
                 throw new AlreadyExpiredException(String.format("clientId %s already expired!", clientId));
             }
             BaseClientDetails baseClientDetails = new BaseClientDetails();

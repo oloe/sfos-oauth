@@ -1,7 +1,7 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
-import com.revengemission.sso.oauth2.server.domain.RoleEnum;
-import com.revengemission.sso.oauth2.server.service.CaptchaService;
+import com.sfos.oauth.base.RoleEnum;
+import com.sfos.oauth.service.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,9 +1,7 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
-import com.revengemission.sso.oauth2.server.persistence.repository.RoleRepository;
-import com.revengemission.sso.oauth2.server.persistence.repository.ThirdPartyAccountRepository;
-import com.revengemission.sso.oauth2.server.service.CaptchaService;
-import com.revengemission.sso.oauth2.server.service.impl.ClientDetailsServiceImpl;
+import com.sfos.oauth.service.CaptchaService;
+import com.sfos.oauth.service.impl.ClientDetailsServiceImpl;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -64,12 +62,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     CaptchaService captchaService;
 
-    @Autowired
-    ThirdPartyAccountRepository thirdPartyAccountRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
-
     @Value("${jwt.jks.keypass:keypass}")
     private String keypass;
 
@@ -89,6 +81,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return keyStoreKeyFactory.getKeyPair("jwt");
     }
 
+    /**
+     * jwt token converter
+     *
+     * @return
+     */
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
@@ -99,6 +96,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return accessTokenConverter;
     }
 
+    /**
+     * 自定义token参数设置
+     *
+     * @return
+     */
     @Bean
     public TokenEnhancer tokenEnhancer() {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
@@ -112,6 +114,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new JwtTokenStore(accessTokenConverter());
     }
 
+    /**
+     * 获取授权客户信息
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(clientDetailsService);
@@ -119,7 +126,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     /**
      * 可以用redis等存储
-     *
      * @return ApprovalStore
      */
     @Bean
@@ -219,11 +225,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 authorizationServerTokenServices(), clientDetailsService, oAuth2RequestFactory()));
         }
 
-        tokenGranters.add(new SmsCodeTokenGranter(userDetailsService, authorizationServerTokenServices(),
-            clientDetailsService, oAuth2RequestFactory(), captchaService));
-
-        tokenGranters.add(new WeChatMiniProgramTokenGranter(thirdPartyAccountRepository, roleRepository, authorizationServerTokenServices(),
-            clientDetailsService, oAuth2RequestFactory(), appId, secret));
+//        tokenGranters.add(new SmsCodeTokenGranter(userDetailsService, authorizationServerTokenServices(),
+//            clientDetailsService, oAuth2RequestFactory(), captchaService));
+//
+//        tokenGranters.add(new WeChatMiniProgramTokenGranter(thirdPartyAccountRepository, roleRepository, authorizationServerTokenServices(),
+//            clientDetailsService, oAuth2RequestFactory(), appId, secret));
         return tokenGranters;
     }
 

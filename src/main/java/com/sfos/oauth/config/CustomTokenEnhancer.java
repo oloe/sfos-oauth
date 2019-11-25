@@ -1,6 +1,6 @@
-package com.revengemission.sso.oauth2.server.config;
+package com.sfos.oauth.config;
 
-import com.revengemission.sso.oauth2.server.domain.UserInfo;
+import com.sfos.oauth.base.UserInfo;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -14,6 +14,10 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * 自定义token参数
+ */
 public class CustomTokenEnhancer implements TokenEnhancer {
 
     private String issuerUri;
