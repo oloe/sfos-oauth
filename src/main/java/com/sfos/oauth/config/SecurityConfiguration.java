@@ -2,6 +2,7 @@ package com.sfos.oauth.config;
 
 import com.sfos.oauth.base.RoleEnum;
 import com.sfos.oauth.service.CaptchaService;
+import com.sfos.oauth.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     CaptchaService captchaService;
 
     @Autowired
-    UserDetailsService userService;
+    UserDetailsServiceImpl userService;
 
     @Bean
     PasswordEncoder passwordEncoder() {

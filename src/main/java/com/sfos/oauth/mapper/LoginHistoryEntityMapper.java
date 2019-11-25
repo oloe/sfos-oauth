@@ -1,7 +1,9 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.LoginHistoryEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LoginHistoryEntityMapper {
     int deleteByPrimaryKey(Long id);
 

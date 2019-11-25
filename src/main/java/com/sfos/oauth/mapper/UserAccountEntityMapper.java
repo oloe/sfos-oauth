@@ -1,7 +1,9 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.UserAccountEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserAccountEntityMapper {
     int deleteByPrimaryKey(Long id);
 
