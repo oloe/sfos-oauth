@@ -24,6 +24,166 @@
     from login_history_entity
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from login_history_entity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sfos.oauth.model.LoginHistoryEntity">
+    insert into login_history_entity (id, date_created, last_modified, 
+      record_status, remarks, sort_priority, 
+      version, client_id, device, 
+      ip, username)
+    values (#{id,jdbcType=BIGINT}, #{dateCreated,jdbcType=TIMESTAMP}, #{lastModified,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{sortPriority,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{clientId,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sfos.oauth.model.LoginHistoryEntity">
+    insert into login_history_entity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dateCreated != null">
+        date_created,
+      </if>
+      <if test="lastModified != null">
+        last_modified,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="sortPriority != null">
+        sort_priority,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="device != null">
+        device,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dateCreated != null">
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sortPriority != null">
+        #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        #{device,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sfos.oauth.model.LoginHistoryEntity">
+    update login_history_entity
+    <set>
+      <if test="dateCreated != null">
+        date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sortPriority != null">
+        sort_priority = #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null">
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        device = #{device,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sfos.oauth.model.LoginHistoryEntity">
+    update login_history_entity
+    set date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      sort_priority = #{sortPriority,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      device = #{device,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.sfos.oauth.model.LoginHistoryEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="date_created" jdbcType="TIMESTAMP" property="dateCreated" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sort_priority" jdbcType="INTEGER" property="sortPriority" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date_created, last_modified, record_status, remarks, sort_priority, version, 
+    client_id, device, ip, username
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from login_history_entity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
   <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

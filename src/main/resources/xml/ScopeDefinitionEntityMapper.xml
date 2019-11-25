@@ -22,6 +22,144 @@
     from scope_definition_entity
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from scope_definition_entity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sfos.oauth.model.ScopeDefinitionEntity">
+    insert into scope_definition_entity (id, date_created, last_modified, 
+      record_status, remarks, sort_priority, 
+      version, definition, scope
+      )
+    values (#{id,jdbcType=BIGINT}, #{dateCreated,jdbcType=TIMESTAMP}, #{lastModified,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{sortPriority,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{definition,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sfos.oauth.model.ScopeDefinitionEntity">
+    insert into scope_definition_entity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dateCreated != null">
+        date_created,
+      </if>
+      <if test="lastModified != null">
+        last_modified,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="sortPriority != null">
+        sort_priority,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="definition != null">
+        definition,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dateCreated != null">
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sortPriority != null">
+        #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="definition != null">
+        #{definition,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sfos.oauth.model.ScopeDefinitionEntity">
+    update scope_definition_entity
+    <set>
+      <if test="dateCreated != null">
+        date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sortPriority != null">
+        sort_priority = #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="definition != null">
+        definition = #{definition,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sfos.oauth.model.ScopeDefinitionEntity">
+    update scope_definition_entity
+    set date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      sort_priority = #{sortPriority,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      definition = #{definition,jdbcType=VARCHAR},
+      scope = #{scope,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.sfos.oauth.model.ScopeDefinitionEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="date_created" jdbcType="TIMESTAMP" property="dateCreated" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sort_priority" jdbcType="INTEGER" property="sortPriority" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="definition" jdbcType="VARCHAR" property="definition" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date_created, last_modified, record_status, remarks, sort_priority, version, 
+    definition, scope
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from scope_definition_entity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
   <select id="selectByScope" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

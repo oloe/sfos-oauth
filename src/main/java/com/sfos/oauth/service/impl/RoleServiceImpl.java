@@ -4,6 +4,7 @@ import com.github.dozermapper.core.Mapper;
 import com.sfos.oauth.base.NotImplementException;
 import com.sfos.oauth.base.Role;
 import com.sfos.oauth.mapper.RoleEntityMapper;
+import com.sfos.oauth.model.RoleEntity;
 import com.sfos.oauth.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,6 +4,7 @@ import com.github.dozermapper.core.Mapper;
 import com.sfos.oauth.base.NotImplementException;
 import com.sfos.oauth.base.ScopeDefinition;
 import com.sfos.oauth.mapper.ScopeDefinitionEntityMapper;
+import com.sfos.oauth.model.ScopeDefinitionEntity;
 import com.sfos.oauth.service.ScopeDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

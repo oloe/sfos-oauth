@@ -35,6 +35,275 @@
     from oauth_client_entity
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from oauth_client_entity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sfos.oauth.model.OauthClientEntity">
+    insert into oauth_client_entity (id, date_created, last_modified, 
+      record_status, remarks, sort_priority, 
+      version, access_token_validity, additional_information, 
+      application_name, authorities, authorized_grant_types, 
+      auto_approve, client_id, client_secret, 
+      expiration_date, refresh_token_validity, 
+      resource_ids, scope, web_server_redirect_uri
+      )
+    values (#{id,jdbcType=BIGINT}, #{dateCreated,jdbcType=TIMESTAMP}, #{lastModified,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{sortPriority,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{accessTokenValidity,jdbcType=INTEGER}, #{additionalInformation,jdbcType=VARCHAR}, 
+      #{applicationName,jdbcType=VARCHAR}, #{authorities,jdbcType=VARCHAR}, #{authorizedGrantTypes,jdbcType=VARCHAR}, 
+      #{autoApprove,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, #{clientSecret,jdbcType=VARCHAR}, 
+      #{expirationDate,jdbcType=TIMESTAMP}, #{refreshTokenValidity,jdbcType=INTEGER}, 
+      #{resourceIds,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}, #{webServerRedirectUri,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sfos.oauth.model.OauthClientEntity">
+    insert into oauth_client_entity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dateCreated != null">
+        date_created,
+      </if>
+      <if test="lastModified != null">
+        last_modified,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="sortPriority != null">
+        sort_priority,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="accessTokenValidity != null">
+        access_token_validity,
+      </if>
+      <if test="additionalInformation != null">
+        additional_information,
+      </if>
+      <if test="applicationName != null">
+        application_name,
+      </if>
+      <if test="authorities != null">
+        authorities,
+      </if>
+      <if test="authorizedGrantTypes != null">
+        authorized_grant_types,
+      </if>
+      <if test="autoApprove != null">
+        auto_approve,
+      </if>
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="clientSecret != null">
+        client_secret,
+      </if>
+      <if test="expirationDate != null">
+        expiration_date,
+      </if>
+      <if test="refreshTokenValidity != null">
+        refresh_token_validity,
+      </if>
+      <if test="resourceIds != null">
+        resource_ids,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="webServerRedirectUri != null">
+        web_server_redirect_uri,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dateCreated != null">
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sortPriority != null">
+        #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="accessTokenValidity != null">
+        #{accessTokenValidity,jdbcType=INTEGER},
+      </if>
+      <if test="additionalInformation != null">
+        #{additionalInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationName != null">
+        #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorities != null">
+        #{authorities,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedGrantTypes != null">
+        #{authorizedGrantTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="autoApprove != null">
+        #{autoApprove,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSecret != null">
+        #{clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="expirationDate != null">
+        #{expirationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refreshTokenValidity != null">
+        #{refreshTokenValidity,jdbcType=INTEGER},
+      </if>
+      <if test="resourceIds != null">
+        #{resourceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="webServerRedirectUri != null">
+        #{webServerRedirectUri,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sfos.oauth.model.OauthClientEntity">
+    update oauth_client_entity
+    <set>
+      <if test="dateCreated != null">
+        date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sortPriority != null">
+        sort_priority = #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="accessTokenValidity != null">
+        access_token_validity = #{accessTokenValidity,jdbcType=INTEGER},
+      </if>
+      <if test="additionalInformation != null">
+        additional_information = #{additionalInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationName != null">
+        application_name = #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorities != null">
+        authorities = #{authorities,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedGrantTypes != null">
+        authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="autoApprove != null">
+        auto_approve = #{autoApprove,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSecret != null">
+        client_secret = #{clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="expirationDate != null">
+        expiration_date = #{expirationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refreshTokenValidity != null">
+        refresh_token_validity = #{refreshTokenValidity,jdbcType=INTEGER},
+      </if>
+      <if test="resourceIds != null">
+        resource_ids = #{resourceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="webServerRedirectUri != null">
+        web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sfos.oauth.model.OauthClientEntity">
+    update oauth_client_entity
+    set date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      sort_priority = #{sortPriority,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      access_token_validity = #{accessTokenValidity,jdbcType=INTEGER},
+      additional_information = #{additionalInformation,jdbcType=VARCHAR},
+      application_name = #{applicationName,jdbcType=VARCHAR},
+      authorities = #{authorities,jdbcType=VARCHAR},
+      authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
+      auto_approve = #{autoApprove,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      client_secret = #{clientSecret,jdbcType=VARCHAR},
+      expiration_date = #{expirationDate,jdbcType=TIMESTAMP},
+      refresh_token_validity = #{refreshTokenValidity,jdbcType=INTEGER},
+      resource_ids = #{resourceIds,jdbcType=VARCHAR},
+      scope = #{scope,jdbcType=VARCHAR},
+      web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.sfos.oauth.model.OauthClientEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="date_created" jdbcType="TIMESTAMP" property="dateCreated" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sort_priority" jdbcType="INTEGER" property="sortPriority" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="access_token_validity" jdbcType="INTEGER" property="accessTokenValidity" />
+    <result column="additional_information" jdbcType="VARCHAR" property="additionalInformation" />
+    <result column="application_name" jdbcType="VARCHAR" property="applicationName" />
+    <result column="authorities" jdbcType="VARCHAR" property="authorities" />
+    <result column="authorized_grant_types" jdbcType="VARCHAR" property="authorizedGrantTypes" />
+    <result column="auto_approve" jdbcType="VARCHAR" property="autoApprove" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="client_secret" jdbcType="VARCHAR" property="clientSecret" />
+    <result column="expiration_date" jdbcType="TIMESTAMP" property="expirationDate" />
+    <result column="refresh_token_validity" jdbcType="INTEGER" property="refreshTokenValidity" />
+    <result column="resource_ids" jdbcType="VARCHAR" property="resourceIds" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" />
+    <result column="web_server_redirect_uri" jdbcType="VARCHAR" property="webServerRedirectUri" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date_created, last_modified, record_status, remarks, sort_priority, version, 
+    access_token_validity, additional_information, application_name, authorities, authorized_grant_types, 
+    auto_approve, client_id, client_secret, expiration_date, refresh_token_validity, 
+    resource_ids, scope, web_server_redirect_uri
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oauth_client_entity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
   <select id="selectByClientId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

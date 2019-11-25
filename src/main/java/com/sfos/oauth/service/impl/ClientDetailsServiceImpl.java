@@ -4,6 +4,7 @@ import com.sfos.oauth.base.AlreadyExpiredException;
 import com.sfos.oauth.base.InvalidClientException;
 import com.sfos.oauth.config.CachesEnum;
 import com.sfos.oauth.mapper.OauthClientEntityMapper;
+import com.sfos.oauth.model.OauthClientEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -16,8 +17,8 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
             if (oauthClientEntity.getRecordStatus() < 0) {
                 throw new InvalidClientException(String.format("clientId %s is disabled!", clientId));
             }
-            if (oauthClientEntity.getExpirationDate() != null && oauthClientEntity.getExpirationDate().before(new Date())) {
+            if (oauthClientEntity.getExpirationDate() != null && oauthClientEntity.getExpirationDate().isBefore(LocalDateTime.now())) {
                 throw new AlreadyExpiredException(String.format("clientId %s already expired!", clientId));
             }
             BaseClientDetails baseClientDetails = new BaseClientDetails();
