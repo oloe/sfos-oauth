@@ -1,7 +1,9 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.RoleEntity;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface RoleEntityMapper {
     int deleteByPrimaryKey(Long id);
 

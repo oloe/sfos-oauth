@@ -1,7 +1,9 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.OauthClientEntity;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface OauthClientEntityMapper {
     int deleteByPrimaryKey(Long id);
 
