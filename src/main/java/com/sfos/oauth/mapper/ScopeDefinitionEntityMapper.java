@@ -1,9 +1,7 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.ScopeDefinitionEntity;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface ScopeDefinitionEntityMapper {
     int deleteByPrimaryKey(Long id);
 

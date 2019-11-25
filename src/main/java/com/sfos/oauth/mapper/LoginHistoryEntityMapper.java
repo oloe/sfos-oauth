@@ -1,9 +1,7 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.LoginHistoryEntity;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface LoginHistoryEntityMapper {
     int deleteByPrimaryKey(Long id);
 
