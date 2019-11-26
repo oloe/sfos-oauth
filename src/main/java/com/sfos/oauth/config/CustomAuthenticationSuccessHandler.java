@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sfos.oauth.base.GlobalConstant;
 import com.sfos.oauth.base.LoginHistory;
 import com.sfos.oauth.base.ResponseResult;
-import com.sfos.oauth.base.RoleEnum;
+import com.sfos.oauth.enums.RoleEnum;
 import com.sfos.oauth.service.LoginHistoryService;
 import com.sfos.oauth.service.UserAccountService;
 import com.sfos.oauth.utils.ClientIpUtil;

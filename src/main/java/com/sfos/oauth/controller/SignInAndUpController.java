@@ -2,6 +2,7 @@ package com.sfos.oauth.controller;
 
 import com.sfos.oauth.base.*;
 import com.sfos.oauth.config.CachesEnum;
+import com.sfos.oauth.enums.RoleEnum;
 import com.sfos.oauth.service.CaptchaService;
 import com.sfos.oauth.service.OauthClientService;
 import com.sfos.oauth.service.RoleService;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLOutput;
 import java.util.UUID;
 
 @Controller
