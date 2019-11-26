@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sfos.oauth.mapper.EbpOprinfoMapper">
+  <resultMap id="BaseResultMap" type="com.sfos.oauth.model.EbpOprinfo">
+    <id column="EOI_CSTNO" jdbcType="VARCHAR" property="eoiCstno" />
+    <id column="EOI_CREDTYPE" jdbcType="VARCHAR" property="eoiCredtype" />
+    <id column="EOI_CREDNO" jdbcType="VARCHAR" property="eoiCredno" />
+    <result column="EOI_OPRID" jdbcType="VARCHAR" property="eoiOprid" />
+    <result column="EOI_OPRROLE" jdbcType="VARCHAR" property="eoiOprrole" />
+    <result column="EOI_OPRTYPE" jdbcType="VARCHAR" property="eoiOprtype" />
+    <result column="EOI_NAME" jdbcType="VARCHAR" property="eoiName" />
+    <result column="EOI_CREDVALIDEND" jdbcType="VARCHAR" property="eoiCredvalidend" />
+    <result column="EOI_MOBILE" jdbcType="VARCHAR" property="eoiMobile" />
+    <result column="EOI_EMAIL" jdbcType="VARCHAR" property="eoiEmail" />
+    <result column="EOI_ALIAS" jdbcType="VARCHAR" property="eoiAlias" />
+    <result column="EOI_PASSWORD" jdbcType="VARCHAR" property="eoiPassword" />
+    <result column="EOI_VERIFYTYPE" jdbcType="VARCHAR" property="eoiVerifytype" />
+    <result column="EOI_ISFIRSTLOGON" jdbcType="VARCHAR" property="eoiIsfirstlogon" />
+    <result column="EOI_CREATETIME" jdbcType="VARCHAR" property="eoiCreatetime" />
+    <result column="RESERVE1" jdbcType="VARCHAR" property="reserve1" />
+    <result column="RESERVE2" jdbcType="VARCHAR" property="reserve2" />
+    <result column="RESERVE3" jdbcType="VARCHAR" property="reserve3" />
+    <result column="RESERVE4" jdbcType="VARCHAR" property="reserve4" />
+    <result column="RESERVE5" jdbcType="VARCHAR" property="reserve5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EOI_CSTNO, EOI_CREDTYPE, EOI_CREDNO, EOI_OPRID, EOI_OPRROLE, EOI_OPRTYPE, EOI_NAME, 
+    EOI_CREDVALIDEND, EOI_MOBILE, EOI_EMAIL, EOI_ALIAS, EOI_PASSWORD, EOI_VERIFYTYPE, 
+    EOI_ISFIRSTLOGON, EOI_CREATETIME, RESERVE1, RESERVE2, RESERVE3, RESERVE4, RESERVE5
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.sfos.oauth.model.EbpOprinfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ebp_oprinfo
+    where EOI_CSTNO = #{eoiCstno,jdbcType=VARCHAR}
+      and EOI_CREDTYPE = #{eoiCredtype,jdbcType=VARCHAR}
+      and EOI_CREDNO = #{eoiCredno,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ebp_oprinfo
+    where EOI_ALIAS = #{eoiAlias,jdbcType=VARCHAR}
+  </select>
+  <select id="checkByUsername" parameterType="java.lang.String" resultType="java.lang.Boolean">
+    select
+    count(1)
+    from ebp_oprinfo
+    where EOI_ALIAS = #{eoiAlias,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.sfos.oauth.model.EbpOprinfoKey">
+    delete from ebp_oprinfo
+    where EOI_CSTNO = #{eoiCstno,jdbcType=VARCHAR}
+      and EOI_CREDTYPE = #{eoiCredtype,jdbcType=VARCHAR}
+      and EOI_CREDNO = #{eoiCredno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sfos.oauth.model.EbpOprinfo">
+    insert into ebp_oprinfo (EOI_CSTNO, EOI_CREDTYPE, EOI_CREDNO, 
+      EOI_OPRID, EOI_OPRROLE, EOI_OPRTYPE, 
+      EOI_NAME, EOI_CREDVALIDEND, EOI_MOBILE, 
+      EOI_EMAIL, EOI_ALIAS, EOI_PASSWORD, 
+      EOI_VERIFYTYPE, EOI_ISFIRSTLOGON, EOI_CREATETIME, 
+      RESERVE1, RESERVE2, RESERVE3, 
+      RESERVE4, RESERVE5)
+    values (#{eoiCstno,jdbcType=VARCHAR}, #{eoiCredtype,jdbcType=VARCHAR}, #{eoiCredno,jdbcType=VARCHAR}, 
+      #{eoiOprid,jdbcType=VARCHAR}, #{eoiOprrole,jdbcType=VARCHAR}, #{eoiOprtype,jdbcType=VARCHAR}, 
+      #{eoiName,jdbcType=VARCHAR}, #{eoiCredvalidend,jdbcType=VARCHAR}, #{eoiMobile,jdbcType=VARCHAR}, 
+      #{eoiEmail,jdbcType=VARCHAR}, #{eoiAlias,jdbcType=VARCHAR}, #{eoiPassword,jdbcType=VARCHAR}, 
+      #{eoiVerifytype,jdbcType=VARCHAR}, #{eoiIsfirstlogon,jdbcType=VARCHAR}, #{eoiCreatetime,jdbcType=VARCHAR}, 
+      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}, 
+      #{reserve4,jdbcType=VARCHAR}, #{reserve5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sfos.oauth.model.EbpOprinfo">
+    insert into ebp_oprinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eoiCstno != null">
+        EOI_CSTNO,
+      </if>
+      <if test="eoiCredtype != null">
+        EOI_CREDTYPE,
+      </if>
+      <if test="eoiCredno != null">
+        EOI_CREDNO,
+      </if>
+      <if test="eoiOprid != null">
+        EOI_OPRID,
+      </if>
+      <if test="eoiOprrole != null">
+        EOI_OPRROLE,
+      </if>
+      <if test="eoiOprtype != null">
+        EOI_OPRTYPE,
+      </if>
+      <if test="eoiName != null">
+        EOI_NAME,
+      </if>
+      <if test="eoiCredvalidend != null">
+        EOI_CREDVALIDEND,
+      </if>
+      <if test="eoiMobile != null">
+        EOI_MOBILE,
+      </if>
+      <if test="eoiEmail != null">
+        EOI_EMAIL,
+      </if>
+      <if test="eoiAlias != null">
+        EOI_ALIAS,
+      </if>
+      <if test="eoiPassword != null">
+        EOI_PASSWORD,
+      </if>
+      <if test="eoiVerifytype != null">
+        EOI_VERIFYTYPE,
+      </if>
+      <if test="eoiIsfirstlogon != null">
+        EOI_ISFIRSTLOGON,
+      </if>
+      <if test="eoiCreatetime != null">
+        EOI_CREATETIME,
+      </if>
+      <if test="reserve1 != null">
+        RESERVE1,
+      </if>
+      <if test="reserve2 != null">
+        RESERVE2,
+      </if>
+      <if test="reserve3 != null">
+        RESERVE3,
+      </if>
+      <if test="reserve4 != null">
+        RESERVE4,
+      </if>
+      <if test="reserve5 != null">
+        RESERVE5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eoiCstno != null">
+        #{eoiCstno,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiCredtype != null">
+        #{eoiCredtype,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiCredno != null">
+        #{eoiCredno,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiOprid != null">
+        #{eoiOprid,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiOprrole != null">
+        #{eoiOprrole,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiOprtype != null">
+        #{eoiOprtype,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiName != null">
+        #{eoiName,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiCredvalidend != null">
+        #{eoiCredvalidend,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiMobile != null">
+        #{eoiMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiEmail != null">
+        #{eoiEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiAlias != null">
+        #{eoiAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiPassword != null">
+        #{eoiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiVerifytype != null">
+        #{eoiVerifytype,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiIsfirstlogon != null">
+        #{eoiIsfirstlogon,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiCreatetime != null">
+        #{eoiCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null">
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null">
+        #{reserve4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve5 != null">
+        #{reserve5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sfos.oauth.model.EbpOprinfo">
+    update ebp_oprinfo
+    <set>
+      <if test="eoiOprid != null">
+        EOI_OPRID = #{eoiOprid,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiOprrole != null">
+        EOI_OPRROLE = #{eoiOprrole,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiOprtype != null">
+        EOI_OPRTYPE = #{eoiOprtype,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiName != null">
+        EOI_NAME = #{eoiName,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiCredvalidend != null">
+        EOI_CREDVALIDEND = #{eoiCredvalidend,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiMobile != null">
+        EOI_MOBILE = #{eoiMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiEmail != null">
+        EOI_EMAIL = #{eoiEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiAlias != null">
+        EOI_ALIAS = #{eoiAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiPassword != null">
+        EOI_PASSWORD = #{eoiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiVerifytype != null">
+        EOI_VERIFYTYPE = #{eoiVerifytype,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiIsfirstlogon != null">
+        EOI_ISFIRSTLOGON = #{eoiIsfirstlogon,jdbcType=VARCHAR},
+      </if>
+      <if test="eoiCreatetime != null">
+        EOI_CREATETIME = #{eoiCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null">
+        RESERVE1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        RESERVE2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        RESERVE3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null">
+        RESERVE4 = #{reserve4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve5 != null">
+        RESERVE5 = #{reserve5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EOI_CSTNO = #{eoiCstno,jdbcType=VARCHAR}
+      and EOI_CREDTYPE = #{eoiCredtype,jdbcType=VARCHAR}
+      and EOI_CREDNO = #{eoiCredno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sfos.oauth.model.EbpOprinfo">
+    update ebp_oprinfo
+    set EOI_OPRID = #{eoiOprid,jdbcType=VARCHAR},
+      EOI_OPRROLE = #{eoiOprrole,jdbcType=VARCHAR},
+      EOI_OPRTYPE = #{eoiOprtype,jdbcType=VARCHAR},
+      EOI_NAME = #{eoiName,jdbcType=VARCHAR},
+      EOI_CREDVALIDEND = #{eoiCredvalidend,jdbcType=VARCHAR},
+      EOI_MOBILE = #{eoiMobile,jdbcType=VARCHAR},
+      EOI_EMAIL = #{eoiEmail,jdbcType=VARCHAR},
+      EOI_ALIAS = #{eoiAlias,jdbcType=VARCHAR},
+      EOI_PASSWORD = #{eoiPassword,jdbcType=VARCHAR},
+      EOI_VERIFYTYPE = #{eoiVerifytype,jdbcType=VARCHAR},
+      EOI_ISFIRSTLOGON = #{eoiIsfirstlogon,jdbcType=VARCHAR},
+      EOI_CREATETIME = #{eoiCreatetime,jdbcType=VARCHAR},
+      RESERVE1 = #{reserve1,jdbcType=VARCHAR},
+      RESERVE2 = #{reserve2,jdbcType=VARCHAR},
+      RESERVE3 = #{reserve3,jdbcType=VARCHAR},
+      RESERVE4 = #{reserve4,jdbcType=VARCHAR},
+      RESERVE5 = #{reserve5,jdbcType=VARCHAR}
+    where EOI_CSTNO = #{eoiCstno,jdbcType=VARCHAR}
+      and EOI_CREDTYPE = #{eoiCredtype,jdbcType=VARCHAR}
+      and EOI_CREDNO = #{eoiCredno,jdbcType=VARCHAR}
+  </update>
+</mapper>
