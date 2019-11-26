@@ -41,7 +41,7 @@
     from user_account_entity
     where username = #{username,jdbcType=VARCHAR}
   </select>
-  <select id="checkByUsername" parameterType="java.lang.String" resultMap="java.lang.Boolean">
+  <select id="checkByUsername" parameterType="java.lang.String" resultType="java.lang.Boolean">
     select
     count(1)
     from user_account_entity
