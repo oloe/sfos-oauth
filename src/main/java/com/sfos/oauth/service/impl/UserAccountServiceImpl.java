@@ -4,8 +4,9 @@ import com.github.dozermapper.core.Mapper;
 import com.sfos.oauth.base.EntityNotFoundException;
 import com.sfos.oauth.base.UserAccount;
 import com.sfos.oauth.mapper.RoleEntityMapper;
-import com.sfos.oauth.mapper.UserAccountEntityMapper;
-import com.sfos.oauth.model.UserAccountEntity;
+import com.sfos.oauth.mapper.EbpOprinfoMapper;
+import com.sfos.oauth.model.EbpOprinfo;
+import com.sfos.oauth.model.EbpOprinfoKey;
 import com.sfos.oauth.service.UserAccountService;
 import com.sfos.oauth.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,9 @@ import java.time.LocalDateTime;
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
 
+
     @Autowired
-    UserAccountEntityMapper userAccountEntityMapper;
+    EbpOprinfoMapper EbpOprinfoMapper;
 
     @Autowired
     RoleEntityMapper roleEntityMapper;
@@ -58,7 +60,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 //    @Override
 //    @Transactional(rollbackFor = Exception.class)
-//    public UserAccount create(UserAccount userAccount) throws AlreadyExistsException {
+//    public EbpOprinfo create(UserAccount userAccount) throws AlreadyExistsException {
 //        UserAccountEntity exist = userAccountEntityMapper.selectByUsername(userAccount.getUsername());
 //        if (exist != null) {
 //            throw new AlreadyExistsException(userAccount.getUsername() + " already exists!");
@@ -78,14 +80,14 @@ public class UserAccountServiceImpl implements UserAccountService {
 //    }
 
 //    @Override
-//    public UserAccount retrieveById(long id) throws EntityNotFoundException {
+//    public EbpOprinfo retrieveById(long id) throws EntityNotFoundException {
 //        Optional<UserAccountEntity> entityOptional = userAccountEntityMapper.selectByPrimaryKey(id);
 //        return dozerMapper.map(entityOptional.orElseThrow(EntityNotFoundException::new), UserAccount.class);
 //    }
 
 //    @Override
 //    @Transactional(rollbackFor = Exception.class)
-//    public UserAccount updateById(UserAccount userAccount) throws EntityNotFoundException {
+//    public EbpOprinfo updateById(UserAccount userAccount) throws EntityNotFoundException {
 //        Optional<UserAccountEntity> entityOptional = userAccountEntityMapper.selectByPrimaryKey(Long.parseLong(userAccount.getId()));
 //        UserAccountEntity e = entityOptional.orElseThrow(EntityNotFoundException::new);
 //        if (StringUtils.isNotEmpty(userAccount.getPassword())) {
@@ -114,10 +116,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 //    }
 
     @Override
-    public UserAccount findByUsername(String username) throws EntityNotFoundException {
-        UserAccountEntity userAccountEntity = userAccountEntityMapper.selectByUsername(username);
-        if (userAccountEntity != null) {
-            return dozerMapper.map(userAccountEntity, UserAccount.class);
+    public EbpOprinfo findByUsername(String username) throws EntityNotFoundException {
+        EbpOprinfo ebpOprinfo = EbpOprinfoMapper.selectByUsername(username);
+        if (ebpOprinfo != null) {
+            return dozerMapper.map(ebpOprinfo, EbpOprinfo.class);
         } else {
             throw new EntityNotFoundException(username + " not found!");
         }
@@ -125,18 +127,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public boolean existsByUsername(String username) {
-        return userAccountEntityMapper.checkByUsername(username);
+        return EbpOprinfoMapper.checkByUsername(username);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     @Async
     public void loginSuccess(String username) throws EntityNotFoundException {
-        UserAccountEntity userAccountEntity = userAccountEntityMapper.selectByUsername(username);
-        if (userAccountEntity != null) {
-            userAccountEntity.setFailureCount(0);
-            userAccountEntity.setFailureTime(null);
-            userAccountEntityMapper.insert(userAccountEntity);
+        EbpOprinfo ebpOprinfo = EbpOprinfoMapper.selectByUsername(username);
+        if (ebpOprinfo != null) {
+//            ebpOprinfo.setFailureCount(0);
+//            ebpOprinfo.setFailureTime(null);
+            EbpOprinfoMapper.insert(ebpOprinfo);
         } else {
             throw new EntityNotFoundException(username + " not found!");
         }
@@ -145,22 +147,22 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void loginFailure(String username) {
-        UserAccountEntity userAccountEntity = userAccountEntityMapper.selectByUsername(username);
-        if (userAccountEntity != null) {
-            if (userAccountEntity.getFailureTime() == null) {
-                userAccountEntity.setFailureCount(1);
-            } else {
-                if (DateUtil.beforeToday(userAccountEntity.getFailureTime())) {
-                    userAccountEntity.setFailureCount(0);
-                } else {
-                    userAccountEntity.setFailureCount(userAccountEntity.getFailureCount() + 1);
-                }
-            }
-            userAccountEntity.setFailureTime(LocalDateTime.now());
-            if (userAccountEntity.getFailureCount() >= failureMax && userAccountEntity.getRecordStatus() >= 0) {
-                userAccountEntity.setRecordStatus(-1);
-            }
-            userAccountEntityMapper.insert(userAccountEntity);
+        EbpOprinfo userAccount = EbpOprinfoMapper.selectByUsername(username);
+        if (userAccount != null) {
+//            if (ebpOprinfo.getFailureTime() == null) {
+//                ebpOprinfo.setFailureCount(1);
+//            } else {
+//                if (DateUtil.beforeToday(ebpOprinfo.getFailureTime())) {
+//                    ebpOprinfo.setFailureCount(0);
+//                } else {
+//                    ebpOprinfo.setFailureCount(ebpOprinfo.getFailureCount() + 1);
+//                }
+//            }
+//            ebpOprinfo.setFailureTime(LocalDateTime.now());
+//            if (ebpOprinfo.getFailureCount() >= failureMax && ebpOprinfo.getRecordStatus() >= 0) {
+//                ebpOprinfo.setRecordStatus(-1);
+//            }
+            EbpOprinfoMapper.insert(userAccount);
         }
     }
 }

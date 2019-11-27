@@ -2,6 +2,7 @@ package com.sfos.oauth.service;
 
 import com.sfos.oauth.base.EntityNotFoundException;
 import com.sfos.oauth.base.UserAccount;
+import com.sfos.oauth.model.EbpOprinfo;
 
 public interface UserAccountService extends CommonServiceInterface<UserAccount> {
 //    JsonObjects<UserAccount> listByUsername(String username,
@@ -10,7 +11,7 @@ public interface UserAccountService extends CommonServiceInterface<UserAccount> 
 //                                            String sortField,
 //                                            String sortOrder);
 
-    UserAccount findByUsername(String username) throws EntityNotFoundException;
+    EbpOprinfo findByUsername(String username) throws EntityNotFoundException;
 
     boolean existsByUsername(String username);
 

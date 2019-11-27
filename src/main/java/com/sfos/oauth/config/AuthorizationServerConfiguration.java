@@ -2,6 +2,7 @@ package com.sfos.oauth.config;
 
 import com.sfos.oauth.service.CaptchaService;
 import com.sfos.oauth.service.impl.ClientDetailsServiceImpl;
+import com.sfos.oauth.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -57,7 +57,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     ClientDetailsServiceImpl clientDetailsService;
 
     @Autowired
-    UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     CaptchaService captchaService;
