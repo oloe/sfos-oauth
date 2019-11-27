@@ -1,7 +1,9 @@
 package com.sfos.oauth.config;
 
-import com.sfos.oauth.base.RoleEnum;
+import com.sfos.oauth.enums.RoleEnum;
 import com.sfos.oauth.service.CaptchaService;
+import com.sfos.oauth.service.impl.UserDetailsServiceImpl;
+import com.sfos.oauth.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -41,11 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     CaptchaService captchaService;
 
     @Autowired
-    UserDetailsService userService;
+    UserDetailsServiceImpl userService;
 
+    //自定义密码加密
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new EncryptUtil();
     }
 
     @Bean

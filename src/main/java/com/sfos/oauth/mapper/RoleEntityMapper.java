@@ -1,7 +1,9 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.RoleEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RoleEntityMapper {
     int deleteByPrimaryKey(Long id);
 

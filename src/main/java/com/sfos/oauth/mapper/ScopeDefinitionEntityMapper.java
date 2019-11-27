@@ -1,7 +1,9 @@
 package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.ScopeDefinitionEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ScopeDefinitionEntityMapper {
     int deleteByPrimaryKey(Long id);
 
