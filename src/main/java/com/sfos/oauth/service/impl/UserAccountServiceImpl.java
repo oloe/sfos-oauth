@@ -2,20 +2,22 @@ package com.sfos.oauth.service.impl;
 
 import com.github.dozermapper.core.Mapper;
 import com.sfos.oauth.base.EntityNotFoundException;
+import com.sfos.oauth.base.JsonObjects;
 import com.sfos.oauth.base.UserAccount;
-import com.sfos.oauth.mapper.RoleEntityMapper;
 import com.sfos.oauth.mapper.EbpOprinfoMapper;
+import com.sfos.oauth.mapper.RoleEntityMapper;
 import com.sfos.oauth.model.EbpOprinfo;
-import com.sfos.oauth.model.EbpOprinfoKey;
 import com.sfos.oauth.service.UserAccountService;
-import com.sfos.oauth.utils.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
@@ -33,30 +35,30 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Value("${signin.failure.max:5}")
     private int failureMax;
 
-//    @Override
-//    public JsonObjects<UserAccount> listByUsername(String username, int pageNum, int pageSize, String sortField, String sortOrder) {
-//        JsonObjects<UserAccount> jsonObjects = new JsonObjects<>();
-//        Sort sort;
-//        if (StringUtils.equalsIgnoreCase(sortOrder, "asc")) {
-//            sort = Sort.by(Sort.Direction.ASC, sortField);
-//        } else {
-//            sort = Sort.by(Sort.Direction.DESC, sortField);
-//        }
-//        Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
-//        Page<UserAccountEntity> page;
-//        if (StringUtils.isBlank(username)) {
-//            page = userAccountEntityMapper.findAll(pageable);
-//        } else {
-//            page = userAccountEntityMapper.findByUsernameLike(username + "%", pageable);
-//        }
-//        if (page.getContent() != null && page.getContent().size() > 0) {
-//            jsonObjects.setRecordsTotal(page.getTotalElements());
-//            jsonObjects.setRecordsFiltered(page.getTotalElements());
-//            page.getContent().forEach(u -> jsonObjects.getData().add(dozerMapper.map(u, UserAccount.class)));
-//        }
-//        return jsonObjects;
-//
-//    }
+    @Override
+    public JsonObjects<UserAccount> listByUsername(String username, int pageNum, int pageSize, String sortField, String sortOrder) {
+        JsonObjects<UserAccount> jsonObjects = new JsonObjects<>();
+        Sort sort;
+        if (StringUtils.equalsIgnoreCase(sortOrder, "asc")) {
+            sort = Sort.by(Sort.Direction.ASC, sortField);
+        } else {
+            sort = Sort.by(Sort.Direction.DESC, sortField);
+        }
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
+        Page<EbpOprinfo> page;
+        if (StringUtils.isBlank(username)) {
+            page = EbpOprinfoMapper.findAll(pageable);
+        } else {
+            page = EbpOprinfoMapper.findByUsernameLike(username + "%", pageable);
+        }
+        if (page.getContent() != null && page.getContent().size() > 0) {
+            jsonObjects.setRecordsTotal(page.getTotalElements());
+            jsonObjects.setRecordsFiltered(page.getTotalElements());
+            page.getContent().forEach(u -> jsonObjects.getData().add(dozerMapper.map(u, UserAccount.class)));
+        }
+        return jsonObjects;
+
+    }
 
 //    @Override
 //    @Transactional(rollbackFor = Exception.class)
@@ -138,7 +140,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (ebpOprinfo != null) {
 //            ebpOprinfo.setFailureCount(0);
 //            ebpOprinfo.setFailureTime(null);
-            EbpOprinfoMapper.insert(ebpOprinfo);
+//            EbpOprinfoMapper.insert(ebpOprinfo);
         } else {
             throw new EntityNotFoundException(username + " not found!");
         }

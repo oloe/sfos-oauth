@@ -2,6 +2,8 @@ package com.sfos.oauth.mapper;
 
 import com.sfos.oauth.model.EbpOprinfo;
 import com.sfos.oauth.model.EbpOprinfoKey;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface EbpOprinfoMapper {
     int deleteByPrimaryKey(EbpOprinfoKey key);
@@ -18,6 +20,9 @@ public interface EbpOprinfoMapper {
 
     int updateByPrimaryKeySelective(EbpOprinfo record);
 
+    Page<EbpOprinfo> findByUsernameLike(String username, Pageable page);
+
     int updateByPrimaryKey(EbpOprinfo record);
 
+    Page<EbpOprinfo> findAll(Pageable pageable);
 }

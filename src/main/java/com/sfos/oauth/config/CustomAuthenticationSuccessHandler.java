@@ -25,6 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Component
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -33,6 +34,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 
     @Autowired
     LoginHistoryService loginHistoryService;
+
 
     RequestCache requestCache = new HttpSessionRequestCache();
 
@@ -52,9 +54,10 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         loginHistory.setIp(ClientIpUtil.getIpAddress(request));
         loginHistory.setDevice(request.getHeader("User-Agent"));
         loginHistory.setRecordStatus(1);
+        loginHistory.setDateCreated(LocalDateTime.now());
         loginHistoryService.asyncCreate(loginHistory);
 
-        userAccountService.loginSuccess(authentication.getName());
+//        userAccountService.loginSuccess(authentication.getName());
 
         boolean isAjax = "XMLHttpRequest".equals(request
                 .getHeader("X-Requested-With")) || "apiLogin".equals(request
